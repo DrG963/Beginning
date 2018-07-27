@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/stylesheets/proofer.css">
+</head>
+<body>
+  <cfsetting requestTimeOut = "10800">
+  <!-- Queries here -->
+  <cfquery name="cities" datasource="YourDataSource">
+    SELECT TOP 1
+      [LastUpdated]
+  FROM YourTable
+  ORDER BY LASTUPDATED DESC
+  </cfquery>
+  <cfquery name="zips" datasource="YourDataSource">
+    SELECT TOP 1
+      [LAST_UPDATED]
+  FROM YourTable
+  ORDER BY LAST_UPDATED DESC
+  </cfquery>
+<cfquery name="data" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+      ,[time]
+  FROM YourTable
+  ORDER BY DATE DESC
+</cfquery>
+<cfquery name="data2" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+      ,[time]
+  FROM YourTable
+  ORDER BY DATE DESC
+</cfquery>
+<cfquery name="data3" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+      ,[time]
+  FROM YourTable
+  ORDER BY DATE DESC
+</cfquery>
+<cfquery name="data4" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+      ,[time]
+  FROM YourTable
+  ORDER BY DATE DESC
+</cfquery>
+<cfquery name="data5" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+      ,[time]
+  FROM YourTable
+  ORDER BY DATE DESC
+</cfquery>
+<cfquery name="data6" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+      ,[time]
+  FROM YourTable
+  ORDER BY DATE DESC
+</cfquery>
+<cfquery name="data7" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+      ,[time]
+  FROM YourTable
+  ORDER BY DATE DESC
+</cfquery>
+<cfquery name="ads" datasource="YourDataSource">
+  SELECT TOP 1 [date]
+        ,[time]
+    FROM YourTable
+    ORDER BY DATE DESC
+</cfquery>
+<!-- QuerieS Endo -->
+<div id="talk">
+If the dates in the table correspond to today/yesterday,<br>that means everything works!!!
+</div>
+<div id="info">
+  <table>
+<th>Log1 Date Proof</th>
+<th>Log2 Date Proof</th>
+<th>Log3 Date Proof</th>
+<th>Log4 Date Proof</th>
+<th>Log5 Date Proof</th>
+<th>Log6 Date Proof</th>
+<th>Log7 Date Proof</th>
+<tr>
+  <cfoutput><td>#dateFormat(data.date)#</td></cfoutput>
+  <cfoutput><td>#dateFormat(data2.date)#</td></cfoutput>
+  <cfoutput><td>#dateFormat(data3.date)#</td></cfoutput>
+  <cfoutput><td>#dateFormat(data4.date)#</td></cfoutput>
+  <cfoutput><td>#dateFormat(data5.date)#</td></cfoutput>
+  <cfoutput><td>#dateFormat(data6.date)#</td></cfoutput>
+  <cfoutput><td>#dateFormat(data7.date)#</td></cfoutput>
+</tr>
+</table>
+<div id="second">
+<table>
+  <th>Cities and States Auto Complete Last Updated:</th>
+  <tr>
+  <cfoutput><td>#dateFormat(cities.lastupdated)#</td></cfoutput>
+</tr>
+</table>
+</div>
+<div id="third">
+<table>
+  <th>Zips and WebStore Last Updated:</th>
+  <tr>
+  <cfoutput><td>#dateFormat(zips.last_updated)#</td></cfoutput>
+</tr>
+</table>
+</div>
+<div id="fourth">
+<table>
+  <th>Ad Data:</th>
+  <tr>
+  <cfoutput><td>#dateFormat(ads.date)#</td></cfoutput>
+</tr>
+</table>
+</div>
+</div>
+<cfparam name="piloc" default="">
+  <cfparam name="piloc2" default="">
+    <cfparam name="piloc3" default="">
+      <cfparam name="piloc4" default="">
+<!-- Script stuff -->
+<cfscript>
+today = now();
+format = DateFormat(today);
+day = mid(format, 1,2);
+yesterday = day - 1;
+start = dateFormat(data.date);
+start2 = dateFormat(data2.date);
+start3 = dateFormat(data3.date);
+start4 = dateFormat(data4.date);
+start5 = dateFormat(data5.date);
+start6 = dateFormat(data6.date);
+start7 = dateFormat(data7.date);
+val = mid(start, 1,2);
+val2 = mid(start2, 1,2);
+val3 = mid(start3, 1,2);
+val4 = mid(start4, 1,2);
+val5 = mid(start5, 1,2);
+val6 = mid(start6, 1,2);
+val7 = mid(start7, 1,2);
+if(val eq yesterday and val3 eq yesterday and val4 eq yesterday and val5 eq yesterday and val6 eq yesterday and val7 eq yesterday) {
+  piloc = "/images/check.png"
+}
+else {
+  piloc = "/images/x.png";
+}
+citiesday = dateFormat(cities.lastupdated);
+citiestoday = mid(citiesday,1,2);
+if(citiestoday eq day or citiestoday eq yesterday){
+  piloc2 = "/images/check.png"
+}
+else{
+  piloc2 = "/images/x.png"
+}
+zipform = dateformat(zips.last_updated);
+zipday = mid(zipform,1,2);
+if(zipday eq day or zipday eq yesterday){
+  piloc3 = "/images/check.png";
+}
+else{
+  piloc3 = "/images/x.png";
+}
+ad = dateformat(ads.date);
+adval = mid(ad,1,2);
+if(adval eq day or adval eq yesterday){
+  piloc4 = "/images/check.png";
+}
+else{
+  piloc4 = "/images/x.png";
+}
+</cfscript>
+<!-- Script stuff -->
+<div id="verify1">
+<div id="text1"><strong>Did the ad logs for all 7 sites update?</strong></div>
+<cfoutput><div id="image1"><img src="#piloc#"</div></cfoutput>
+</div>
+<div id="verify2">
+  <div id="text2"><strong>Left: The City and State Autocomplete was updated? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Right: The Zip Autocomplete was Updated?</strong></div>
+  <cfoutput><div id="image2"><img src="#piloc2#"></div></cfoutput>
+  <cfoutput><div id="image3"><img src="#piloc3#"></div></cfoutput>
+</div>
+<div id="verify3">
+<div id="text3"><strong>Did the ad table update?</strong></div>
+<cfoutput><div id="image4"><img src="#piloc4#"></div></cfoutput>
+</div>
+</body>
+</html>
